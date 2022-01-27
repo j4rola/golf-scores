@@ -1,26 +1,22 @@
 var axios = require('axios');
 const { load } = require('cheerio');
 var cheerio = require('cheerio');
+const { toArray } = require('cheerio/lib/api/traversing');
+const cors = require('cors')
 //Express
-const express = require('express') 
+const express = require('express'); 
+const { getFirstChild } = require('parse5-htmlparser2-tree-adapter');
 const app = express() 
 const port = 5000 
 
-app.get('/', (req, res) => {
-  res.json(array)
-})
+app.use(cors())
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+app.get('/', async (req, res) => {   
 
-//API request 
+    const url = 'https://www.espn.com/golf/leaderboard'  
 
-const array = []
+    const array = []
 
-async function getScores() {   
-
-    const url = 'https://www.espn.com/golf/leaderboard'
     try {
       const response = await axios(url);   
       const responseData = response.data;  
@@ -31,23 +27,36 @@ async function getScores() {
       //   const title = $(this).text()
       //   console.log(title)
       // })
+
+
   
       $('.PlayerRow__Overview', responseData).each(function(){
-        
+        const list = []
         const playerName = $(this).find('a').text()
         const teeTime = $(this).find('.tc').text()
-        const score = $(this).find('.Table__TD').text()
-        array.push(playerName, teeTime, score)
+        const tdArray = $(this).find('.Table__TD').toArray().map((x) => { return $(x).text()})  
+        const score = tdArray[4]
+        const position = tdArray[1]
+        const totalScore = tdArray[7] 
+        const holesPlayed = tdArray[6]
+        console.log(tdArray)
+        array.push({playerName: playerName, score: score, teeTime: teeTime, position: position, totalScore: totalScore, holesPlayed: holesPlayed})  
       })
   
-      console.log(array)    
+      res.json(array)
       
     } catch (error) {
       console.error(error);
     }
-  }
+  } // end of handler function
+  ) // end of app.get() 
 
-  getScores()
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+
+//API request 
   
   
 

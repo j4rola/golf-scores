@@ -1,0 +1,39 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#feed {
+    color: steelblue; 
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#wrap {
+    display: flex;
+    justify-content: center;
+    border: lightgray solid 1px;   
+    margin-bottom: 10px;
+    width: 700px; 
+    padding: auto;
+    
+}
+
+#wrapper{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+h3 {
+    padding: 10px;
+    width: 100%;
+    
+} 
+
+h4 {
+    padding: 10px;
+    width: 100%; 
+}
+
