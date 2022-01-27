@@ -31,7 +31,7 @@ app.get('/', async (req, res) => {
        //const title = $('.mt4', responseData).find('.headline headline__h1 Leaderboard__Event__Title').text()
   
       $('.PlayerRow__Overview', responseData).each(function(){
-        const list = []
+        
         const playerName = $(this).find('a').text()
         const teeTime = $(this).find('.tc').text()
         const tdArray = $(this).find('.Table__TD').toArray().map((x) => { return $(x).text()})  // get all text from '.Table__TD' class and store them in an array
