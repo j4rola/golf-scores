@@ -28,13 +28,13 @@ app.get('/', async (req, res) => {
       //   console.log(title)
       // })
 
-
+       //const title = $('.mt4', responseData).find('.headline headline__h1 Leaderboard__Event__Title').text()
   
       $('.PlayerRow__Overview', responseData).each(function(){
         const list = []
         const playerName = $(this).find('a').text()
         const teeTime = $(this).find('.tc').text()
-        const tdArray = $(this).find('.Table__TD').toArray().map((x) => { return $(x).text()})  
+        const tdArray = $(this).find('.Table__TD').toArray().map((x) => { return $(x).text()})  // get all text from '.Table__TD' class and store them in an array
         const score = tdArray[4]
         const position = tdArray[1]
         const totalScore = tdArray[7] 
